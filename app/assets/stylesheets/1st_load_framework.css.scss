@@ -1,5 +1,6 @@
 // import the CSS framework
 @import "bootstrap-sprockets";
+@import "bootstrap_overrides";
 @import "bootstrap";
 
 // make all images responsive by default
@@ -35,12 +36,19 @@ img {
 // to make views framework-neutral
 main {
   @extend .container;
-  background-color: #eee;
   padding-bottom: 80px;
   width: 100%;
-  margin-top: 51px; // accommodate the navbar
+  margin-top: 81px; // accommodate the navbar
   }
 section {
   @extend .row;
   margin-top: 20px;
   }
+
+a.navbar-brand {
+  padding: 9px 15px;
+
+  > img {
+    height: 34px;
+  }
+}

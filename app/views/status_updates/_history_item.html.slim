@@ -1,0 +1,6 @@
+.history-item.row class=history_item.system_status.downcase
+  .col-sm-12
+    h4.title
+      = "[#{history_item.system_status}] #{history_item.message}"
+    .timestamp = history_item.created_at.strftime("%b %-d, %H:%M %Z")
+    

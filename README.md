@@ -1,50 +1,86 @@
 Litmus
 ================
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-This application was generated with the [rails_apps_composer](https://github.com/RailsApps/rails_apps_composer) gem
-provided by the [RailsApps Project](http://railsapps.github.io/).
-
-Rails Composer is supported by developers who purchase our RailsApps tutorials.
-
-Problems? Issues?
------------
-
-Need help? Ask on Stack Overflow with the tag 'railsapps.'
-
-Your application contains diagnostics in the README file. Please provide a copy of the README file when reporting any issues.
-
-If the application doesn't work as expected, please [report an issue](https://github.com/RailsApps/rails_apps_composer/issues)
-and include the diagnostics.
-
-Ruby on Rails
--------------
-
 This application requires:
 
 - Ruby 2.3.1
 - Rails 4.2.6
 
-Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
-
-Getting Started
----------------
-
-Documentation and Support
--------------------------
-
-Issues
--------------
-
-Similar Projects
-----------------
-
-Contributing
+Assumptions
 ------------
++ Sending a status update message without a status is valid, and in that case, the status for the update would be the last known status. If no status updates exist, then the update is invalid.
 
-Credits
--------
+With more time
+---------------
+With a bit more time, here are some things I'd look to improve:
++ Stand-alone documentation for the API
++ Grouping status updates under some sort of "incidents" model.
++ Might consider using Rails 5 and ActionCable as a means of rendering real-time updates to the system status via WebSockets.
 
-License
--------
+Getting Set Up
+---------------
+1. Install ruby 2.3.1
+2. `> gem install bundler`
+3. `> bundle`
+4. `> bundle exec rake:db:setup`
+5. `> bundle exec rails server`
+
+Running Tests
+--------------------
+1. `> bundle exec rake db:migrate RAILS_ENV=test`
+2. `> bundle exec rspec`
+
+Viewing the Status Site
+----------------------------
+1. Check out the site at localhost:3000, verify the empty state is in place.
+
+Using the API
+===============
+
+### Request
+
+Requests should be in the following format:
+```
+curl -XPOST -H "Content-type: application/json" -d '{"system_status": "UP", "message": "Hello world."}' 'localhost:3000/api/v1/status.json'
+```
+
+#### Parameters
+
+|Parameter          | Description|
+|:------------------|:-----------|
+| **system_status** | This is the status you want to set. Can be "UP" or "DOWN" |
+| **message**       | This is a message you want to include in the status update. This is *not required*. |
+
+**Note:** If a status update is sent without a `system_status`, it is assumed that the system status has not changed and should inherit the status from the previous update.
+
+
+### Response
+
+The response to the API will be in the following format and always include the current system status at the conclusion of handling the request:
+
+```
+{
+  "current_status": {
+    "system_status": "DOWN",
+    "message": "Some message."
+  }
+}
+```
+
+### Error Handling
+
+If there is an error in the API call, you will receive a 400 (Bad Request) response, as well as an `errors` object that indicates what was wrong with the request, a la:
+
+```
+{
+  "current_status": {
+    "system_status": "DOWN",
+    "message": "Some message."
+  },
+  "errors": {
+    "system_status": [
+      "Status must be one of UP or DOWN."
+    ]
+  }
+}
+```

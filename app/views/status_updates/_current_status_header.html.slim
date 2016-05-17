@@ -1,0 +1,7 @@
+#current_status.jumbotron class=status.system_status.downcase
+  h1 
+    | The system is 
+    = status.system_status.downcase
+    | .
+  -if status.message
+    p.message = status.message

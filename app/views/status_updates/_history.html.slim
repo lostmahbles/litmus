@@ -1,0 +1,6 @@
+.history
+  - if updates.empty?
+    = status_history_empty_state
+  - else
+    - updates.each do |update|
+      = status_history_item(update: update)

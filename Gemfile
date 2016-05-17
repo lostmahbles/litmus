@@ -19,6 +19,7 @@ gem 'pg'
 gem 'slim-rails'
 gem 'thin'
 group :development do
+  gem 'annotate'
   gem 'better_errors'
   gem 'foreman'
   gem 'guard-bundler'
