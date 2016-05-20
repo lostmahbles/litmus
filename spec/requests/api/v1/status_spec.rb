@@ -10,7 +10,7 @@ describe "Status API" do
 
     describe "updating with message only" do
       it "should succeed and change only the message" do
-        post '/api/v1/status',  status_update: { message: "bar" }
+        post '/api/v1/status', message: "bar"
 
         json = JSON.parse(response.body)
 
@@ -25,7 +25,7 @@ describe "Status API" do
 
     describe "updating with status only" do
       it "should update the status" do
-        post '/api/v1/status',  status_update: { system_status: "DOWN" }
+        post '/api/v1/status', system_status: "DOWN"
 
         json = JSON.parse(response.body)
 
@@ -37,7 +37,7 @@ describe "Status API" do
       end
 
       it "should clear the message" do
-        post '/api/v1/status',  status_update: { system_status: "DOWN" }
+        post '/api/v1/status', system_status: "DOWN"
 
         json = JSON.parse(response.body)
 
@@ -50,7 +50,7 @@ describe "Status API" do
 
     describe "updating status and message" do
       it "should update both status and message" do 
-        post '/api/v1/status',  status_update: { system_status: "DOWN", message: "This is my message"}
+        post '/api/v1/status', system_status: "DOWN", message: "This is my message"
 
         json = JSON.parse(response.body)
 
@@ -66,7 +66,7 @@ describe "Status API" do
     describe "error handling" do
       describe "with invalid status" do
         before do
-          post '/api/v1/status',  status_update: { system_status: "FOO" }
+          post '/api/v1/status', system_status: "FOO"
           @json = JSON.parse(response.body)
         end
 
