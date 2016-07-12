@@ -16,11 +16,8 @@ development:
   adapter:  postgresql
   host:     localhost
   encoding: unicode
-  database: litmus_development
+  database: status_development
   pool:     5
-  username: litmus
-  password:
-  template: template0
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -44,18 +41,12 @@ test:
   adapter:  postgresql
   host:     localhost
   encoding: unicode
-  database: litmus_test
+  database: status_test
   pool:     5
-  username: litmus
-  password:
-  template: template0
 
 production:
   adapter:  postgresql
   host:     localhost
   encoding: unicode
-  database: litmus_production
+  database: status_production
   pool:     5
-  username: litmus
-  password:
-  template: template0

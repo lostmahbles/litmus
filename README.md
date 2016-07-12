@@ -1,5 +1,7 @@
-Litmus
+Status Page App
 ================
+
+The goal of this application was to demonstrate building a backend API and front-end consumer of the same application. It was meant to be done in 4-6 hours. In addition to the front-end application, be sure to check out the specs as well. And let me know if you have any questions.
 
 This application requires:
 
@@ -22,17 +24,21 @@ Getting Set Up
 1. Install ruby 2.3.1
 2. `> gem install bundler`
 3. `> bundle`
-4. `> bundle exec rake:db:setup`
+4. `> bundle exec rake db:setup`
 5. `> bundle exec rails server`
 
 Running Tests
 --------------------
-1. `> bundle exec rake db:migrate RAILS_ENV=test`
+1. `> bundle exec rake db:test:prepare`
 2. `> bundle exec rspec`
 
 Viewing the Status Site
 ----------------------------
-1. Check out the site at localhost:3000, verify the empty state is in place.
+1. Check out the site at localhost:3000, verify the empty state is in place and looks like: ![No Status](docs/empty_state.png)
+2. `curl -XPOST -H "Content-type: application/json" -d '{"system_status": "UP", "message": "Hello world."}' 'localhost:3000/api/v1/status.json'`
+3. Refresh and see: ![Up Status](docs/msg1.png)
+4. `curl -XPOST -H "Content-type: application/json" -d '{"system_status": "DOWN", "message": "Oh no! The system is down!"}' 'localhost:3000/api/v1/status.json'`
+5. Refresh and see: ![Up Status](docs/msg2.png)
 
 Using the API
 ===============
